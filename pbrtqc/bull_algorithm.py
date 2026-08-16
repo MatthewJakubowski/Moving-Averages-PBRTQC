@@ -22,8 +22,10 @@ class BullAlgorithm:
     for monitoring red blood cell indices (MCV, MCH, MCHC) in hematology.
     
     Formula:
-        X_bar_B(i) = X_bar_B(i-1) + sign(d_i) * |d_i|^(1/2)
-        where d_i = sum[ sign(r_j - X_bar_B(i-1)) * |r_j - X_bar_B(i-1)|^(1/2) ] / N
+        d_j = r_j - X_bar_B(i-1)
+        s_j = sign(d_j) * sqrt(|d_j|)
+        d_bar = sum(s_j) / N
+        X_bar_B(i) = X_bar_B(i-1) + sign(d_bar) * (d_bar)^2
     """
 
     def __init__(
@@ -73,10 +75,9 @@ class BullAlgorithm:
         signed_roots = np.sign(diffs) * np.sqrt(np.abs(diffs))
         d_mean = np.sum(signed_roots) / n
 
-        # Update Bull moving average
-        new_estimate = prev_est + np.sign(d_mean) * np.sqrt(np.abs(d_mean)) * (np.sqrt(np.abs(d_mean)))
-        # Standard formulation: X_new = X_prev + sign(d_mean) * |d_mean|
-        new_estimate = float(prev_est + d_mean)
+        # Update Bull moving average: X_i = X_{i-1} + sign(d_mean) * (d_mean)^2
+        delta = np.sign(d_mean) * (d_mean ** 2)
+        new_estimate = float(prev_est + delta)
         self.current_estimate = new_estimate
 
         pct_dev = ((new_estimate - self.target_mean) / self.target_mean) * 100.0
