@@ -1,5 +1,6 @@
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Tuple
 import numpy as np
 from pbrtqc.truncation import TruncationFilter, TruncationLimits
 
@@ -12,6 +13,11 @@ class SPCAlarm:
     metric_value: float
     threshold: float
     direction: str  # 'HIGH' or 'LOW'
+
+
+# Type aliases defined before class definitions
+Tuple_SPC = Tuple[float, Optional[SPCAlarm]]
+Tuple_CUSUM = Tuple[Tuple[float, float], Optional[SPCAlarm]]
 
 
 class EWMAStreamGuard:
@@ -111,8 +117,3 @@ class CUSUMStreamGuard:
             alarm = SPCAlarm(self.sample_count, self.param_name, "CUSUM", self.s_low, self.h, "LOW")
 
         return (self.s_high, self.s_low), alarm
-
-
-# Type aliases for clean type-hinting
-Tuple_SPC = tuple[float, Optional[SPCAlarm]]
-Tuple_CUSUM = tuple[tuple[float, float], Optional[SPCAlarm]]
