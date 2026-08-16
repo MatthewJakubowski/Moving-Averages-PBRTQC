@@ -41,6 +41,7 @@ Traditional internal quality control (IQC) tests commercial control material at 
 
 **Patient-Based Real-Time Quality Control (PBRTQC)** continuously audits the stability of the analytical system using incoming anonymized patient telemetry in real-time.
 
+```text
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                     Continuous Patient Stream                           │
 │        (Hematology Analyzers, Biochemistry ISE & Photometers)           │
@@ -76,7 +77,7 @@ Traditional internal quality control (IQC) tests commercial control material at 
 │  • Zero Black-Box | ISO 15189 Metrology Aligned                         │
 └─────────────────────────────────────────────────────────────────────────┘
 
-
+```
 ---
 
 ## ⚡ Quick Start
